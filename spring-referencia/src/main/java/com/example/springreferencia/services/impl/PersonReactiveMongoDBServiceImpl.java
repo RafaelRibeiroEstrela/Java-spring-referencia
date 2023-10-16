@@ -16,6 +16,7 @@ import reactor.core.publisher.Mono;
 // SERVICE REATIVO
 // FLUX -> RETORNA UM FLUXO DE DADOS, EQUIVALENTE A UMA LISTA DE OBJETOS
 // MONO -> RETORNA UM FLUXO DE UM UNICO DADO, EQUIVALENTE UM OBJETO
+// maven -> spring-boot-starter-webflux
 
 @Service
 public class PersonReactiveMongoDBServiceImpl implements PersonReactiveMongoDBService {

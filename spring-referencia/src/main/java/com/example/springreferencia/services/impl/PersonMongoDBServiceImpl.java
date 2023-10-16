@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 //SERVICE PADRAO DO MVC
+// maven -> spring-boot-starter-webflux (netty) ou spring-boot-starter-web (tomcat)
 @Service
 public class PersonMongoDBServiceImpl implements PersonMongoDBService {
 
