@@ -1,21 +1,31 @@
 package com.example.springreferencia.dtos;
 
-import com.example.springreferencia.models.mongodb.PersonMongoDB;
+import com.example.springreferencia.models.PersonMongoDB;
+import com.example.springreferencia.models.PersonRelational;
 
 public class PersonDTO {
 
     private String id;
     private String name;
-    private int age;
+    private Integer company;
+    private Integer code;
 
     public PersonDTO() {
 
     }
 
-    public PersonDTO(PersonMongoDB personMongoDB) {
-        this.id = personMongoDB.getId().toHexString();
-        this.name = personMongoDB.getPerson().getName();
-        this.age = personMongoDB.getPerson().getAge();
+    public PersonDTO(PersonMongoDB person) {
+        this.id = person.getId().toHexString();
+        this.name = person.getName();
+        this.code = person.getCode();
+        this.company = person.getCompany();
+    }
+
+    public PersonDTO(PersonRelational person) {
+        this.id = person.getId().toString();
+        this.name = person.getName();
+        this.code = person.getCode();
+        this.company = person.getCompany();
     }
 
     public String getId() {
@@ -34,20 +44,19 @@ public class PersonDTO {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
+    public Integer getCompany() {
+        return company;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setCompany(Integer company) {
+        this.company = company;
     }
 
-    @Override
-    public String toString() {
-        return "PersonDTO{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
     }
 }

@@ -2,7 +2,7 @@ package com.example.springreferencia.controllers;
 
 import com.example.springreferencia.dtos.PersonDTO;
 import com.example.springreferencia.services.PersonReactiveService;
-import com.example.springreferencia.services.impl.PersonReactiveMongoDBServiceImpl;
+import com.example.springreferencia.services.impl.PersonReactiveRelationalServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,12 +11,12 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/reactive-mongodb")
-public class PersonReactiveMongoDBController {
+@RequestMapping("/reactive-relational")
+public class PersonReactiveRelationalController {
 
     private final PersonReactiveService service;
 
-    public PersonReactiveMongoDBController(PersonReactiveMongoDBServiceImpl service) {
+    public PersonReactiveRelationalController(PersonReactiveRelationalServiceImpl service) {
         this.service = service;
     }
 

@@ -2,12 +2,12 @@ package com.example.springreferencia.controllers;
 
 /*
 @RestController
-@RequestMapping("/mongodb")
-public class PersonMongoDBController {
+@RequestMapping("/relational")
+public class PersonRelationalController {
 
     private final PersonService service;
 
-    public PersonMongoDBController(PersonMongoDBServiceImpl service) {
+    public PersonRelationalController(PersonRelationalServiceImpl service) {
         this.service = service;
     }
 

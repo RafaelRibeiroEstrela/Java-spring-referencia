@@ -4,8 +4,9 @@ import com.example.springreferencia.dtos.PersonDTO;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface PersonReactiveMongoDBService {
+public interface PersonReactiveService {
 
     Flux<PersonDTO> findAll();
     Mono<PersonDTO> findById(String id);
+    Flux<PersonDTO> findByCompany(Integer company);
 }

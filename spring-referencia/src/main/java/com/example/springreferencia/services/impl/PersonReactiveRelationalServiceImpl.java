@@ -1,30 +1,23 @@
 package com.example.springreferencia.services.impl;
 
 import com.example.springreferencia.dtos.PersonDTO;
-import com.example.springreferencia.repositories.PersonReactiveMongoDBRepository;
+import com.example.springreferencia.repositories.PersonReactiveRelationalRepository;
 import com.example.springreferencia.services.PersonReactiveService;
 import com.example.springreferencia.services.exceptions.InvalidRuleException;
 import com.example.springreferencia.services.exceptions.ResourceNotFoundException;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
-// SERVICE REATIVO
-// FLUX -> RETORNA UM FLUXO DE DADOS, EQUIVALENTE A UMA LISTA DE OBJETOS
-// MONO -> RETORNA UM FLUXO DE UM UNICO DADO, EQUIVALENTE UM OBJETO
-// maven -> spring-boot-starter-webflux
-
 @Service
-public class PersonReactiveMongoDBServiceImpl implements PersonReactiveService {
+public class PersonReactiveRelationalServiceImpl implements PersonReactiveService {
 
-    private final PersonReactiveMongoDBRepository repository;
-    private static final Logger LOGGER = LoggerFactory.getLogger(PersonReactiveMongoDBServiceImpl.class);
+    private final PersonReactiveRelationalRepository repository;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonReactiveRelationalServiceImpl.class);
 
-    public PersonReactiveMongoDBServiceImpl(PersonReactiveMongoDBRepository repository) {
+    public PersonReactiveRelationalServiceImpl(PersonReactiveRelationalRepository repository) {
         this.repository = repository;
     }
 
@@ -43,8 +36,7 @@ public class PersonReactiveMongoDBServiceImpl implements PersonReactiveService {
     public Mono<PersonDTO> findById(String id) {
         LOGGER.info("Buscando recurso no Mongodb de forma reativa com chave = {}", id);
         try {
-            ObjectId objectId = new ObjectId(id);
-            return repository.findById(objectId)
+            return repository.findById(Long.parseLong(id))
                     .map(PersonDTO::new)
                     .switchIfEmpty(Mono.error(() -> {
                         LOGGER.error("Não foi encontrado um recurso com a chave = {}", id);
