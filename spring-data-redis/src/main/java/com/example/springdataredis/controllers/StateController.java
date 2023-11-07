@@ -39,7 +39,7 @@ public class StateController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<StateDTO> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

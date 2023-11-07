@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PersonCache {
 
-    List<Person> findAll(String key);
+    List<Person> findAll();
     Person findById(String key);
     Person save(Person person, String key);
     Person save(Person person, String key, long ttl);

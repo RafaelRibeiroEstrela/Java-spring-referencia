@@ -11,6 +11,7 @@ import java.util.Set;
 public class CacheComponent {
 
     private final RedisTemplate<String, Object> redisTemplate;
+    private static final long TTL_EXPIRE = 1;
 
     public CacheComponent(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
@@ -41,7 +42,15 @@ public class CacheComponent {
         return redisTemplate.opsForSet().members(keySet);
     }
 
-    public void expireKey(String key, long ttl) {
-        redisTemplate.expire(key, Duration.of(ttl, ChronoUnit.SECONDS));
+    public void expireKey(String key) {
+        redisTemplate.expire(key, Duration.of(TTL_EXPIRE, ChronoUnit.SECONDS));
+    }
+
+    public void removeValueFromSet(String keySet, Object value) {
+        redisTemplate.opsForSet().remove(keySet, value);
+        Set<Object> set = redisTemplate.opsForSet().members(keySet);
+        if (set == null || set.isEmpty()) {
+            redisTemplate.expire(keySet, Duration.of(TTL_EXPIRE, ChronoUnit.SECONDS));
+        }
     }
 }

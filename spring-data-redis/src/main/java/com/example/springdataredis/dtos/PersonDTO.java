@@ -1,17 +1,24 @@
-package com.example.springdataredis.models;
+package com.example.springdataredis.dtos;
 
-import org.springframework.data.annotation.Id;
+import com.example.springdataredis.models.Person;
 
 import java.io.Serializable;
 
-public class Person implements Serializable {
+public class PersonDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
     private String id;
     private String name;
     private int age;
+
+    public PersonDTO() {}
+
+    public PersonDTO(Person person) {
+        this.id = person.getId();
+        this.name = person.getName();
+        this.age = person.getAge();
+    }
 
     public String getId() {
         return id;
@@ -36,4 +43,6 @@ public class Person implements Serializable {
     public void setAge(int age) {
         this.age = age;
     }
+
+
 }
