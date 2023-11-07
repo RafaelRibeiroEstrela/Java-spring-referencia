@@ -1,0 +1,15 @@
+
+
+Spring data Redis
+
+A utilização do redis pode ser usada atráves de duas formas:
+
+1 - Utilizando o spring data com o crudRepository
+    Vantagens:
+        Utilização dos métodos do spring data
+2 - Utilizando o redisTemplate
+    Vantagens:
+        Personalização dos métodos
+        Utilização do ttl
+
+
