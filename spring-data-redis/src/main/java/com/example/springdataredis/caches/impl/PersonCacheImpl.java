@@ -5,6 +5,7 @@ import com.example.springdataredis.components.CacheComponent;
 import com.example.springdataredis.models.Person;
 import org.springframework.stereotype.Repository;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -42,14 +43,13 @@ public class PersonCacheImpl implements PersonCache {
     @Override
     public Person save(Person person, String key) {
         cache.save(formatKey(key), person);
-        cache.saveValueInSet(CACHE_KEY, formatKey(key));
+        cache.saveValueInSet(CACHE_KEY, key);
         return (Person) cache.findValueByKey(formatKey(key));
     }
 
     @Override
     public Person save(Person person, String key, long ttl) {
         cache.save(formatKey(key), person, ttl);
-        cache.saveValueInSet(CACHE_KEY, formatKey(key));
         return (Person) cache.findValueByKey(formatKey(key));
     }
 
@@ -68,7 +68,7 @@ public class PersonCacheImpl implements PersonCache {
     @Override
     public void delete(String key) {
         cache.expireKey(formatKey(key));
-        cache.removeValueFromSet(CACHE_KEY, formatKey(key));
+        cache.removeValueFromSet(CACHE_KEY, key);
     }
 
     private String formatKey(String key) {
