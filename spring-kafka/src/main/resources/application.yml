@@ -1,0 +1,5 @@
+
+kafka:
+  host: localhost:9092
+  topic: topic-test
+  group-id: group_id
