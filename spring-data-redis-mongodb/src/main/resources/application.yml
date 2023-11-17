@@ -1,0 +1,12 @@
+
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test
+    redis:
+      client-type: lettuce
+      host: localhost
+      port: 6379
