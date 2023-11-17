@@ -6,6 +6,8 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.springsecurity.models.User;
 import com.example.springsecurity.services.exceptions.ApiException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -16,6 +18,7 @@ public class TokenManagment {
     //A CHAVE DEVE SER ARMAZENADA EM ALGUM LOCAL OCULTO E COM SEGURANCA (EX: VARIAVEL DE AMBIENTE)
     private static final String SECRET_KEY = "XPTO";
     private static final String ISSUER = "spring-security-service";
+    private static final Logger LOGGER = LoggerFactory.getLogger(TokenManagment.class);
 
     public String generate(User user) {
         try {
@@ -39,6 +42,7 @@ public class TokenManagment {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException e) {
+            LOGGER.info("JWTVerificationException: {}", e.getMessage());
             return "";
         }
     }
