@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.springsecurity.models.User;
 import com.example.springsecurity.services.exceptions.ApiException;
+import com.example.springsecurity.services.exceptions.TokenException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,8 @@ public class TokenManagment {
                     .withExpiresAt(expireToken())
                     .sign(algorithm);
         } catch (JWTCreationException e) {
-            throw new ApiException("Erro ao gerar token. " + e.getMessage());
+            LOGGER.info("Erro ao gerar token: {}", e.getMessage());
+            throw new TokenException("Erro ao gerar token. " + e.getMessage());
         }
     }
 
@@ -42,8 +44,8 @@ public class TokenManagment {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException e) {
-            LOGGER.info("JWTVerificationException: {}", e.getMessage());
-            return "";
+            LOGGER.info("Erro ao validar token: {}", e.getMessage());
+            throw new TokenException("Erro ao validar token: " + e.getMessage());
         }
     }
 

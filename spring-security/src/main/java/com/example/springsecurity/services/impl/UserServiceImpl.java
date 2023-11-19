@@ -6,11 +6,15 @@ import com.example.springsecurity.repositories.UserRepository;
 import com.example.springsecurity.services.UserService;
 import com.example.springsecurity.services.exceptions.ApiException;
 import com.example.springsecurity.services.exceptions.ResourceNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserDetailsService, UserService {
@@ -27,6 +31,15 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + username));
+    }
+
+    @Override
+    public Page<UserDTO> findAll(Pageable pageable) {
+        Page<User> page = repository.findAll(pageable);
+        if (page.isEmpty()) {
+            throw new ResourceNotFoundException("Usuário não encontrado");
+        }
+        return page.map(UserDTO::new);
     }
 
     @Override
