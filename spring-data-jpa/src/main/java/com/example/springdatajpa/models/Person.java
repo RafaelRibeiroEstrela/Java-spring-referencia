@@ -1,12 +1,17 @@
 package com.example.springdatajpa.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "persons")
+@Getter
+@Setter
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -14,59 +19,14 @@ public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false)
     private Integer age;
+    //BUSCA PESADA - SEMPRE VAI TRAZER OS DADOS
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
+    private List<House> houses = new ArrayList<>();
+    //BUSCA PREGUICOSA - VAI TRAZER OS DADOS DE FORMA EXPLICITA
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
+    private List<Car> cars = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_address", nullable = false)
-    private Address address;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(id, person.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    //AO CHAMAR O METODO toString COM O RELACIONAMENTO LAZY, PODERA OCORRER ERRO CASO NAO ESTEJA NA MESMA TRANSACAO
 }

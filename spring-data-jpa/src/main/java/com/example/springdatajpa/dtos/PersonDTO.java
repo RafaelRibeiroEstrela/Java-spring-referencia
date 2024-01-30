@@ -1,61 +1,36 @@
 package com.example.springdatajpa.dtos;
 
+import com.example.springdatajpa.models.Car;
+import com.example.springdatajpa.models.House;
 import com.example.springdatajpa.models.Person;
-import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PersonDTO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Data
+public class PersonDTO {
 
     private Long id;
-    @NotNull(message = "Nome é obrigatorio.")
     private String name;
-    @NotNull(message = "Idade é obrigatorio.")
     private Integer age;
-    @NotNull(message = "Endereço é obrigatorio.")
-    private AddressDTO address;
-
-    public PersonDTO() {}
+    private List<HouseDTO> houses = new ArrayList<>();
+    private List<CarDTO> cars = new ArrayList<>();
 
     public PersonDTO(Person person) {
         this.id = person.getId();
         this.name = person.getName();
         this.age = person.getAge();
-        this.address = new AddressDTO(person.getAddress());
     }
 
-    public Long getId() {
-        return id;
+    public PersonDTO(Person person, List<House> houses, List<Car> cars) {
+        this(person);
+        this.houses.addAll(houses.stream().map(HouseDTO::new).toList());
+        this.cars.addAll(cars.stream().map(CarDTO::new).toList());
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public PersonDTO(Person person, List<House> houses) {
+        this(person);
+        this.houses.addAll(houses.stream().map(HouseDTO::new).toList());
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public AddressDTO getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressDTO address) {
-        this.address = address;
-    }
-
 }
