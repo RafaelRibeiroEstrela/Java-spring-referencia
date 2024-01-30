@@ -24,7 +24,9 @@ public class Person implements Serializable {
     //BUSCA PESADA - SEMPRE VAI TRAZER OS DADOS
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private List<House> houses = new ArrayList<>();
-    //BUSCA PREGUICOSA - VAI TRAZER OS DADOS DE FORMA EXPLICITA
+    //BUSCA PREGUICOSA - VAI TRAZER OS DADOS DE FORMA EXPLICITA (QUANDO VC DE ALGUMA FORMA MENCIONAR O RELACIONAMENTO, SEJA ATRAVES DO toString, do getters ou qualquer outro metodo)
+    //PODE OCORRER A EXCECAO DE LAZY POIS NAO HAVERA SESSAO INICIADA PARA BUSCAR OS DADOS
+    //QUANDO DESEJAR BUSCAR OS DADOS DO RELACIONAMENTO, RECOMENDO USAR @Transactional
     @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     private List<Car> cars = new ArrayList<>();
 
