@@ -1,0 +1,16 @@
+type Category {
+    id: ID,
+    name: String
+}
+type Product {
+    id: ID,
+    name: String,
+    price: Float,
+    quantity: Int
+    category: Category
+}
+
+type Query {
+    findAll:[Product]
+    findByCategory(categoryId:Int):[Product]
+}
