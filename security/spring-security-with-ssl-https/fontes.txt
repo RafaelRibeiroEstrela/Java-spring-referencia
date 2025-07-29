@@ -1,2 +1,0 @@
-https://www.thomasvitale.com/https-spring-boot-ssl-certificate/
-https://www.baeldung.com/spring-boot-https-self-signed-certificate

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: spring-web-example
+
+springdoc:
+  show-actuator: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    filter: true
+    path: /swagger-ui.html
+
+server:
+  port: ${SERVER_PORT:8080}
