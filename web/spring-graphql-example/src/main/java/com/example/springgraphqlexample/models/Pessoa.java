@@ -1,15 +1,27 @@
-package com.example.springwebexample.dto;
+package com.example.springgraphqlexample.models;
 
-
-import com.example.springwebexample.models.Pessoa;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-public class PessoaRequest {
+@Entity
+@Table(name = "pessoas")
+public class Pessoa {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private LocalDate dataNascimento;
     private String cpf;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -35,11 +47,5 @@ public class PessoaRequest {
         this.cpf = cpf;
     }
 
-    public Pessoa toModel() {
-        Pessoa model = new Pessoa();
-        model.setNome(this.nome);
-        model.setDataNascimento(this.dataNascimento);
-        model.setCpf(this.cpf);
-        return model;
-    }
+
 }

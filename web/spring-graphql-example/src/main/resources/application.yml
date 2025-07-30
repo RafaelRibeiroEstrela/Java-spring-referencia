@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-web-example
+    name: spring-graphql-example
 
   datasource:
     driver-class-name: org.h2.Driver
@@ -15,14 +15,6 @@ spring:
   h2:
     console:
       enabled: true
-
-springdoc:
-  show-actuator: true
-  api-docs:
-    enabled: true
-  swagger-ui:
-    filter: true
-    path: /swagger-ui.html
 
 server:
   port: ${SERVER_PORT:8080}

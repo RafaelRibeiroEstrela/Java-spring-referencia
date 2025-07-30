@@ -1,0 +1,22 @@
+type PessoaResponse {
+  id: ID!
+  nome: String!
+  cpf: String!
+  dataNascimento: String!
+}
+
+input PessoaRequest {
+  nome: String!
+  cpf: String!
+  dataNascimento: String!
+}
+
+type Query {
+  findPessoaById(id: ID!): PessoaResponse!
+}
+
+type Mutation {
+  createPessoa(request: PessoaRequest!): PessoaResponse!
+  updatePessoa(request: PessoaRequest!, id: ID!): PessoaResponse!
+  deletePessoa(id: ID!): Boolean!
+}

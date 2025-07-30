@@ -1,13 +1,14 @@
-package com.example.springwebexample.dto;
+package com.example.springgraphqlexample.dto;
 
-
-import com.example.springwebexample.models.Pessoa;
+import com.example.springgraphqlexample.models.Pessoa;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 
 public class PessoaRequest {
 
     private String nome;
+    @JsonFormat(pattern = "dd/MM/yyyyy")
     private LocalDate dataNascimento;
     private String cpf;
 
