@@ -1,0 +1,84 @@
+spring:
+  application:
+    name: spring-referencia
+  #MONGO
+  mongodb:
+    uri: ${MONGODB_URI}
+  #JPA
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_URL_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    hikari:
+      pool-name: ${POOL_NAME:DB_POOL}
+      maximum-pool-size: ${MAXIMUM_POOL:5}
+      minimum-idle: ${MINIMUM_IDLE:1}
+      idle-timeout: ${IDLE_TIMEOUT:30000}
+      max-lifetime: ${MAX_LIFETIME:240000}
+      connection-timeout: ${CONNECTION_TIMEOUT:20000}
+      validation-timeout: ${VALIDATION_TIMEOUT:3000}
+      initialization-fail-timeout: ${INITIALIZATION_FAIL_TIMEOUT:10000}
+      leak-detection-threshold: ${LEAK_DETECTION_THRESHOLD:60000}
+      keepalive-time: ${KEEPALIVE_TIME:120000}
+      auto-commit: ${AUTO_COMMIT:false}
+      allow-pool-suspension: ${ALLOW_POOL_SUSPENSION:false}
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+      show-sql: true
+    open-in-view: false
+  messages:
+    always-use-message-format: false
+    basename: messages
+  #UPLOAD ARQUIVOS
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+#SWAGGER
+springdoc:
+  show-actuator: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    filter: true
+    path: ${SWAGGER_PATH:/doc/swagger-ui.html}
+
+#SPRING ACTUATOR
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health, info, metrics, prometheus"
+
+server:
+  port: 8080
+  max-http-request-header-size: ${MAX_HTTP_HEADER_SIZE:65536}
+  servlet:
+    context-path: /spring-referencia
+
+enviroment: ${ENVIROMENT_API:PRODUCTION}
+
+criptografia:
+  palavra-chave: ${CRIPT_PALAVRA_CHAVE:4263b5Q9BwFq}
+
+
+s3:
+  access-key: ${S3_USERNAME}
+  secret-key: ${S3_PASSWORD}
+  endpoint: ${S3_ENDPOINT}
+  bucket: ${S3_BUCKET}
+
+redis:
+  host: ${REDIS_HOST}
+  port: ${REDIS_PORT}
+  username: ${REDIS_USERNAME}
+  password: ${REDIS_PASSWORD}
+
+amqp:
+  queue: ${AMQP_QUEUE}
+  exchange: ${AMQP_EXCHANGE}
+  routing-key: ${AMQP_ROUTING_KEY}
